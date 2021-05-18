@@ -1,21 +1,23 @@
-#define potPin A0
-#define pwmPin 9
-#define pwmMax 255
+#define POT_PIN A0
+#define PWM_PIN 9
+#define PWM_MAX 255
+#define ADC_MAX 1023
 
 int potValue;
 int pwmValue;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(potPin, INPUT);
-  pinMode(pwmPin, OUTPUT);
+  pinMode(POT_PIN, INPUT);
+  pinMode(PWM_PIN, OUTPUT);
 }
 
 void loop() {
-  potValue = analogRead(potPin);
-  pwmValue = map(potValue, 0, 1023, 0, pwmMax);
+  potValue = analogRead(POT_PIN);
+  pwmValue = map(potValue, 0, ADC_MAX, 0, PWM_MAX);
   print();
-  analogWrite(pwmPin, 255);
+  analogWrite(PWM_PIN, pwmValue);
+  delay(50);
 }
 
 void print() {

@@ -17,7 +17,8 @@
 int accelerometer_data[3];
 int summedAccData[3];
 int n = 1;  // Number averaged values
-int counter;
+int averagingCounter;
+int readingsCounter;
 
 
 // void because this only tells the cip to send data to its output register
@@ -112,15 +113,16 @@ void setup() {
 void loop() {
   read_adxl345();
   sumAccData();
-  counter++;
+  averagingCounter++;
+  readingsCounter++;
 
-  if (counter == n) {
+  if (averagingCounter == n && readingsCounter < 10000) {
     //printSummedAccData();
     printAccData();
     resetVariables();
   }
 
-  delay(50 / n);
+  //delay(50 / n);
 }
 
 
@@ -142,16 +144,18 @@ void printSummedAccData() {
 
 
 void printAccData() {
-  Serial.print(float(summedAccData[0]) / counter * 3.9 / 1000); //3.9mg/LSB scale factor in 13-bit mode
+  //Serial.print(readingsCounter);
+  //Serial.print("\t");
+  Serial.print(float(summedAccData[0]) / averagingCounter * 3.9 / 1000); //3.9mg/LSB scale factor in 13-bit mode
   Serial.print("\t");
-  Serial.print(float(summedAccData[1]) / counter * 3.9 / 1000);
+  Serial.print(float(summedAccData[1]) / averagingCounter * 3.9 / 1000);
   Serial.print("\t");
-  Serial.println(float(summedAccData[2]) / counter * 3.9 / 1000);
+  Serial.println(float(summedAccData[2]) / averagingCounter * 3.9 / 1000);
 }
 
 
 void resetVariables() {
-  counter = 0;
+  averagingCounter = 0;
   summedAccData[0] = 0;
   summedAccData[1] = 0;
   summedAccData[2] = 0;

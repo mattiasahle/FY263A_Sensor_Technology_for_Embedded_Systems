@@ -1,9 +1,9 @@
-#define pwmPin 9
-#define pwmMax 255
+#define PWM_PIN 9
+#define PWM_MAX 255
 
 void setup() {
-  pinMode(pwmPin, OUTPUT);
-  analogWrite(pwmPin, pwmMax * 0.5);
+  pinMode(PWM_PIN, OUTPUT);
+  analogWrite(PWM_PIN, PWM_MAX * 0.5);
 }
 
 void loop() {
