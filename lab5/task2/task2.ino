@@ -3,8 +3,9 @@
 
 void setup() {
   pinMode(pwmPin, OUTPUT);
+  analogWrite(pwmPin, pwmMax * 0.5);
 }
 
 void loop() {
-  analogWrite(pwmPin, pwmMax * 0.5);
+
 }

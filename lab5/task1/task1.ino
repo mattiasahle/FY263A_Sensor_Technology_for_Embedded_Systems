@@ -7,4 +7,5 @@ void setup() {
 
 void loop() {
   Serial.println(analogRead(potPin));
+  delay(100);
 }

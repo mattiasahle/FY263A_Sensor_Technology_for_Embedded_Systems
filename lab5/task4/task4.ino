@@ -71,10 +71,10 @@ void init_adxl345() {
 
   // Check to see if it worked!
   i2c_read(ADXL345_ADDRESS, 0X00, 1, &data);
-  if (data == 0xE5)
-    Serial.println("it work Success");
-  else
-    Serial.println("it work Fail");
+  //  if (data == 0xE5)
+  //    Serial.println("it work Success");
+  //  else
+  //    Serial.println("it work Fail");
 }
 
 
@@ -100,6 +100,12 @@ void setup() {
   }
 
   init_adxl345();
+
+  Serial.print("X");
+  Serial.print("\t");
+  Serial.print("Y");
+  Serial.print("\t");
+  Serial.println("Z");
 }
 
 
