@@ -19,6 +19,7 @@ int summedAccData[3];
 int n = 1;  // Number averaged values
 int averagingCounter;
 int readingsCounter;
+int printCounter;
 
 
 // void because this only tells the cip to send data to its output register
@@ -114,12 +115,26 @@ void loop() {
   read_adxl345();
   sumAccData();
   averagingCounter++;
-  readingsCounter++;
+  //readingsCounter++;
 
-  if (averagingCounter == n && readingsCounter < 10000) {
+  // Print 10k readings
+  //  if (averagingCounter == n && readingsCounter < 10000) {
+  //    //printSummedAccData();
+  //    printAccData();
+  //    resetVariables();
+  //  }
+
+  // Print 100 readings of each n
+  if (averagingCounter == n && n < 102) {
     //printSummedAccData();
     printAccData();
     resetVariables();
+    printCounter++;
+  }
+
+  if (printCounter == 99) {
+    printCounter = 0;
+    n += 25;
   }
 
   //delay(50 / n);
@@ -134,11 +149,11 @@ void sumAccData() {
 
 
 void printSummedAccData() {
-  Serial.print(float(summedAccData[0]) * 3.9 / 1000);
+  Serial.print(summedAccData[0]);
   Serial.print("\t");
-  Serial.print(float(summedAccData[1]) * 3.9 / 1000);
+  Serial.print(summedAccData[1]);
   Serial.print("\t");
-  Serial.print(float(summedAccData[2]) * 3.9 / 1000);
+  Serial.print(summedAccData[2]);
   Serial.print("\t");
 }
 
@@ -146,11 +161,11 @@ void printSummedAccData() {
 void printAccData() {
   //Serial.print(readingsCounter);
   //Serial.print("\t");
-  Serial.print(float(summedAccData[0]) / averagingCounter * 3.9 / 1000); //3.9mg/LSB scale factor in 13-bit mode
+  Serial.print(summedAccData[0] / averagingCounter);
   Serial.print("\t");
-  Serial.print(float(summedAccData[1]) / averagingCounter * 3.9 / 1000);
+  Serial.print(summedAccData[1] / averagingCounter);
   Serial.print("\t");
-  Serial.println(float(summedAccData[2]) / averagingCounter * 3.9 / 1000);
+  Serial.println(summedAccData[2] / averagingCounter);
 }
 
 
